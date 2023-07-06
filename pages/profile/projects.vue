@@ -5,9 +5,6 @@ const runtimeConfig = useRuntimeConfig();
 // Router parameters
 const router = useRouter();
 
-// States
-const useStateProducts = useState("stateProducts");
-
 // Fetch
 const { data: products } = await useFetch(
   runtimeConfig.public.apiBase + "/products/user/" + localStorage.userId
@@ -42,12 +39,7 @@ useHead({
       <div class="projects__wrapper">
         <div class="projects__banner">
           <div class="projects__card">
-            <img
-              :src="user.image"
-              alt="User"
-              class="projects__card-image"
-              @error="replaceImgByDefault"
-            />
+            <img :src="user.image" alt="User" class="projects__card-image" @error="replaceImgByDefault" />
             <h2 class="projects__card-name">
               {{ user.name }} {{ user.surname }}
             </h2>
@@ -65,38 +57,19 @@ useHead({
             <h2 class="projects__content-title">
               {{ $t("static.projects.title") }}
             </h2>
-            <UiButtonMain
-              :title="$t('static.projects.buttonAdd')"
-              theme="primary"
-              to="/profile/add-project"
-              v-if="products.length > 0"
-            />
+            <UiButtonMain :title="$t('static.projects.buttonAdd')" theme="primary" to="/profile/add-project"
+              v-if="products.length > 0" />
           </div>
           <div class="projects__content-cards">
-            <UiCardProjectProfile
-              class="projects__content-item"
-              v-for="item in products"
-              :project="item"
-              v-if="products.length > 0"
-            />
-            <div
-              class="projects__content-noprojects"
-              v-if="products.length <= 0"
-            >
-              <img
-                class="projects__content-noprojects-image"
-                src="/img/static/profile/projects/noprojects.png"
-                alt=""
-              />
+            <UiCardProjectProfile class="projects__content-item" v-for="item in products" :project="item"
+              v-if="products.length > 0" />
+            <div class="projects__content-noprojects" v-if="products.length <= 0">
+              <img class="projects__content-noprojects-image" src="/img/static/profile/projects/noprojects.png" alt="" />
               <p class="projects__content-noprojects-description">
                 {{ $t("static.projects.noprojectsDescription") }}
               </p>
-              <UiButtonMain
-                class="projects__content-noprojects-button"
-                theme="primary"
-                :title="$t('static.projects.buttonAdd')"
-                to="/profile/add-project"
-              />
+              <UiButtonMain class="projects__content-noprojects-button" theme="primary"
+                :title="$t('static.projects.buttonAdd')" to="/profile/add-project" />
             </div>
           </div>
         </div>
@@ -138,6 +111,7 @@ useHead({
       filter: drop-shadow(0px 4px 16px rgba(91, 91, 91, 0.24));
       margin-bottom: 10px;
     }
+
     &-name {
       font-style: normal;
       font-weight: 500;
@@ -146,6 +120,7 @@ useHead({
       color: #3a3a44;
       margin-bottom: 5px;
     }
+
     &-email {
       font-style: normal;
       font-weight: 400;
@@ -154,6 +129,7 @@ useHead({
       color: #9191a1;
       margin-bottom: 20px;
     }
+
     &-description {
       font-style: normal;
       font-weight: 400;
@@ -203,6 +179,7 @@ useHead({
         margin-top: 100px;
         margin-bottom: 8px;
       }
+
       &-description {
         font-style: normal;
         font-weight: 400;

@@ -1,11 +1,17 @@
 <script setup>
+// Stores
+import { usePopupStore } from '@/store/popup';
+const popupStore = usePopupStore();
+
 // Props
 const props = defineProps({
   show: Boolean,
 });
 
+
 // Emits
 const emit = defineEmits(["close", "to-sign-up"]);
+
 
 // Computed
 const areAllFiledsFilled = computed(() => {
@@ -16,27 +22,20 @@ const areAllFiledsFilled = computed(() => {
   }
 });
 
+
 // Environment Variables
 const runtimeConfig = useRuntimeConfig();
 
-let user = "";
 
-// States
-const useStateCurrency = useState("stateCurrency");
-const useStatePopupCurrentPrice = useState("statePopupCurrentPrice");
-const useStatePopupCurrentProduct = useState("statePopupCurrentProduct");
-const useStatePopupTransactionFailed = useState("statePopupTransactionFailed");
+// Auth data
+const basicAuth = {
+  Authorization: `Basic ${runtimeConfig.public.basicAuth}`,
+};
+
 
 // Variables
+let user = "";
 const loader = ref(false);
-
-// Functions
-function calcCurrencyRate(price) {
-  return (
-    parseFloat(price.replace(/[\s,%]/g, "")) *
-    parseFloat(useStateCurrency.value.rate)
-  ).toFixed(2);
-}
 
 const order = reactive({
   userId: "",
@@ -57,6 +56,22 @@ const order = reactive({
     },
   },
 });
+
+
+// States
+const useStateCurrency = useState("stateCurrency");
+const useStatePopupCurrentPrice = useState("statePopupCurrentPrice");
+const useStatePopupCurrentProduct = useState("statePopupCurrentProduct");
+
+
+
+// Functions
+function calcCurrencyRate(price) {
+  return (
+    parseFloat(price.replace(/[\s,%]/g, "")) *
+    parseFloat(useStateCurrency.value.rate)
+  ).toFixed(2);
+}
 
 async function checkout() {
   loader.value = true;
@@ -83,6 +98,7 @@ async function checkout() {
   order.order.amount.currency = useStateCurrency.value.code;
 
   $fetch("/orders", {
+    headers: basicAuth,
     method: "POST",
     baseURL: runtimeConfig.public.apiBase,
     body: JSON.stringify(order),
@@ -91,7 +107,7 @@ async function checkout() {
     // user_auth = 1 - error
     if (response.code === 1) {
       // error
-      useStatePopupTransactionFailed.value = true;
+      popupStore.popupTransactionFailed = true;
     } else if (response.code === 0) {
       // redirect
       window.location.href = response.payload.object.payUrl;
@@ -116,27 +132,13 @@ async function checkout() {
               {{ useStateCurrency.code }}
             </p>
           </div>
-          <UiButtonMain
-            class="cart__payment-button"
-            :title="$t('popupCheckout.button')"
-            theme="primary"
-            width="100%"
-            height="56px"
-            padding="0"
-            :loader="loader"
-            loader-path="/img/static/loader.gif"
-            @click="checkout()"
-          />
+          <UiButtonMain class="cart__payment-button" :title="$t('popupCheckout.button')" theme="primary" width="100%"
+            height="56px" padding="0" :loader="loader" loader-path="/img/static/loader.gif" @click="checkout()" />
         </div>
       </div>
     </div>
 
-    <Icon
-      class="modal__close-button"
-      @click="emit('close')"
-      name="PopupClose"
-      size="24"
-    />
+    <Icon class="modal__close-button" @click="emit('close')" name="PopupClose" size="24" />
   </div>
 </template>
 
@@ -208,6 +210,7 @@ async function checkout() {
         line-height: 21px;
         color: #3a3a44;
       }
+
       &-sum {
         font-style: normal;
         font-weight: 600;

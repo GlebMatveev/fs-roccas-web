@@ -1,6 +1,7 @@
 <script setup>
-// States
-const useStatePopupSignUp = useState("statePopupSignUp");
+// Stores
+import { usePopupStore } from '@/store/popup';
+const popupStore = usePopupStore();
 </script>
 
 <template>
@@ -13,11 +14,8 @@ const useStatePopupSignUp = useState("statePopupSignUp");
         <p class="banner__description">
           {{ $t("static.home.bannerIntroducing.description") }}
         </p>
-        <UiButtonMain
-          :title="$t('static.home.bannerIntroducing.button')"
-          theme="primary"
-          @click="useStatePopupSignUp = true"
-        />
+        <UiButtonMain :title="$t('static.home.bannerIntroducing.button')" theme="primary"
+          @click="popupStore.popupSignUp = true" />
       </div>
     </div>
   </section>

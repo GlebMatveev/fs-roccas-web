@@ -1,14 +1,20 @@
+import { usePopupStore } from "@/store/popup";
+
 export default defineNuxtRouteMiddleware((to, from) => {
+  // Stores
+  const popupStore = usePopupStore();
+
   // Environment Variables
   const runtimeConfig = useRuntimeConfig();
 
-  // States
-  const useStatePopupSignIn = useState("statePopupSignIn");
-  const useStatePopupSignUp = useState("statePopupSignUp");
+  // Auth data
+  const basicAuth = {
+    Authorization: `Basic ${runtimeConfig.public.basicAuth}`,
+  };
 
   function toSignIn() {
-    useStatePopupSignUp.value = false;
-    useStatePopupSignIn.value = true;
+    popupStore.popupSignUp = false;
+    popupStore.popupSignIn = true;
   }
 
   // если нет данных авторизации
@@ -23,6 +29,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
     };
 
     $fetch("/auth/token", {
+      headers: basicAuth,
       method: "POST",
       baseURL: runtimeConfig.public.apiBase,
       body: checkToken,

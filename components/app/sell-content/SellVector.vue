@@ -1,17 +1,14 @@
 <script setup>
-// States
-const useStatePopupSignUp = useState("statePopupSignUp");
+// Stores
+import { usePopupStore } from '@/store/popup';
+const popupStore = usePopupStore();
 </script>
 
 <template>
   <section class="sell">
     <div class="container">
       <div class="sell__wrapper">
-        <img
-          src="/img/static/sell-content/sell-vector.png"
-          alt="Sell content"
-          class="sell__image"
-        />
+        <img src="/img/static/sell-content/sell-vector.png" alt="Sell content" class="sell__image" />
         <div class="sell__text">
           <h2 class="sell__text-title">
             {{ $t("static.sellContent.sellVector.title") }}
@@ -19,13 +16,8 @@ const useStatePopupSignUp = useState("statePopupSignUp");
           <p class="sell__text-description">
             {{ $t("static.sellContent.sellVector.description") }}
           </p>
-          <UiButtonMain
-            :title="$t('static.sellContent.sellVector.button')"
-            theme="primary"
-            icon-name="ButtonArrowRight"
-            icon-size="18"
-            @click="useStatePopupSignUp = true"
-          />
+          <UiButtonMain :title="$t('static.sellContent.sellVector.button')" theme="primary" icon-name="ButtonArrowRight"
+            icon-size="18" @click="popupStore.popupSignUp = true" />
         </div>
       </div>
     </div>
@@ -54,6 +46,7 @@ const useStatePopupSignUp = useState("statePopupSignUp");
       max-width: 440px;
       margin-bottom: 20px;
     }
+
     &-description {
       font-family: "Inter";
       font-style: normal;
@@ -80,6 +73,7 @@ const useStatePopupSignUp = useState("statePopupSignUp");
     &__image {
       width: 100%;
     }
+
     &__text {
       &-title {
         font-size: 30px;

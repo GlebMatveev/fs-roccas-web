@@ -1,18 +1,30 @@
 <script setup>
+// Stores
+import { usePopupStore } from '@/store/popup';
+const popupStore = usePopupStore();
+
 // Environment Variables
 const runtimeConfig = useRuntimeConfig();
+
+
+// Auth data
+const basicAuth = {
+  Authorization: `Basic ${runtimeConfig.public.basicAuth}`,
+};
+
 
 // Router parameters
 const router = useRouter();
 
+
 // States
-const useStatePopupSignIn = useState("statePopupSignIn");
-const useStatePopupSignUp = useState("statePopupSignUp");
 const useStateToPath = useState("stateToPath");
 
+
+// Functions
 function toSignIn() {
-  useStatePopupSignUp.value = false;
-  useStatePopupSignIn.value = true;
+  popupStore.popupSignUp = false;
+  popupStore.popupSignIn = true;
 }
 
 function checkAuth(to) {
@@ -28,6 +40,7 @@ function checkAuth(to) {
     };
 
     $fetch("/auth/token", {
+      headers: basicAuth,
       method: "POST",
       baseURL: runtimeConfig.public.apiBase,
       body: checkToken,
@@ -60,33 +73,33 @@ function checkAuth(to) {
         <ul class="header__links">
           <li>
             <NuxtLink class="header__links-item" to="/catalog">{{
-              $t("header.links[0]")
-            }}</NuxtLink>
+                          $t("header.links[0]")
+                          }}</NuxtLink>
           </li>
           <li>
             <NuxtLink class="header__links-item" to="/about">{{
-              $t("header.links[1]")
-            }}</NuxtLink>
+                          $t("header.links[1]")
+                          }}</NuxtLink>
           </li>
           <li>
             <NuxtLink class="header__links-item" to="/jobs">{{
-              $t("header.links[2]")
-            }}</NuxtLink>
+                          $t("header.links[2]")
+                          }}</NuxtLink>
           </li>
           <li>
             <NuxtLink class="header__links-item" to="/business">{{
-              $t("header.links[3]")
-            }}</NuxtLink>
+                          $t("header.links[3]")
+                          }}</NuxtLink>
           </li>
           <li>
             <NuxtLink class="header__links-item" to="/sell-content">{{
-              $t("header.links[4]")
-            }}</NuxtLink>
+                          $t("header.links[4]")
+                          }}</NuxtLink>
           </li>
           <li>
             <NuxtLink class="header__links-item" to="/community">{{
-              $t("header.links[5]")
-            }}</NuxtLink>
+                          $t("header.links[5]")
+                          }}</NuxtLink>
           </li>
         </ul>
 
@@ -94,23 +107,16 @@ function checkAuth(to) {
           <UiSelectLangSwitcher />
           <UiSelectCurrencySwitcher />
 
-          <p
-            class="header__buttons-item"
-            @click="checkAuth('/profile/projects')"
-          >
+          <p class="header__buttons-item" @click="checkAuth('/profile/projects')">
             {{ $t("header.buttons[0]") }}
           </p>
 
-          <p class="header__buttons-item" @click="useStatePopupSignIn = true">
+          <p class="header__buttons-item" @click="popupStore.popupSignIn = true">
             {{ $t("header.buttons[1]") }}
           </p>
 
-          <UiButtonMain
-            :title="$t('header.buttons[2]')"
-            theme="secondary"
-            border-radius="30px"
-            @click="useStatePopupSignUp = true"
-          />
+          <UiButtonMain :title="$t('header.buttons[2]')" theme="secondary" border-radius="30px"
+            @click="popupStore.popupSignUp = true" />
         </div>
       </div>
     </div>
@@ -141,6 +147,7 @@ function checkAuth(to) {
       line-height: 24px;
       color: #3a3a44;
     }
+
     &-item:hover {
       color: #dd6738;
     }
@@ -161,6 +168,7 @@ function checkAuth(to) {
       text-transform: uppercase;
       cursor: pointer;
     }
+
     &-item:hover {
       color: #dd6738;
     }

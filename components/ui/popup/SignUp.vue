@@ -1,21 +1,30 @@
 <script setup>
+// Stores
+import { usePopupStore } from '@/store/popup';
+const popupStore = usePopupStore();
+
 // Props
 const props = defineProps({
   show: Boolean,
 });
 
+
 // Emits
 const emit = defineEmits(["close", "to-sign-in"]);
+
 
 // Environment Variables
 const runtimeConfig = useRuntimeConfig();
 
+
+// Auth data
+const basicAuth = {
+  Authorization: `Basic ${runtimeConfig.public.basicAuth}`,
+};
+
+
 // Router parameters
 const router = useRouter();
-
-// States
-const useStatePopupSignIn = useState("statePopupSignIn");
-const useStatePopupSignUp = useState("statePopupSignUp");
 
 // I18n
 const { t } = useI18n();
@@ -23,9 +32,11 @@ const errorMsg = computed(() => {
   return t("popupSignUp.error");
 });
 
+
 // Functions
 function signupUser(user) {
   $fetch("/auth/signup", {
+    headers: basicAuth,
     method: "POST",
     baseURL: runtimeConfig.public.apiBase,
     body: user,
@@ -41,9 +52,10 @@ function signupUser(user) {
 }
 
 function toSignIn() {
-  useStatePopupSignUp.value = false;
-  useStatePopupSignIn.value = true;
+  popupStore.popupSignUp = false;
+  popupStore.popupSignIn = true;
 }
+
 
 // Computed
 const areAllFiledsFilled = computed(() => {
@@ -89,6 +101,7 @@ function deleteImage() {
   imageUrl.value = "/img/static/signup/placeholder.png";
 }
 
+
 // Variables
 const user = reactive({
   image: "",
@@ -120,91 +133,35 @@ let errorMessage = ref("");
           <label class="modal__file-label" for="modal__file-upload">
             {{ $t("popupSignUp.buttonPhotoAdd") }}
           </label>
-          <input
-            class="modal__file-input"
-            id="modal__file-upload"
-            type="file"
-            ref="inputFile"
-            @change="onImageChange"
-          />
+          <input class="modal__file-input" id="modal__file-upload" type="file" ref="inputFile" @change="onImageChange" />
 
-          <UiButtonMain
-            class="modal__delete-button"
-            theme="error"
-            height="36px"
-            width="140px"
-            border-radius="30px"
-            padding="0"
-            :title="$t('popupSignUp.buttonPhotoDelete')"
-            v-if="imageFile"
-            @click="deleteImage"
-          />
+          <UiButtonMain class="modal__delete-button" theme="error" height="36px" width="140px" border-radius="30px"
+            padding="0" :title="$t('popupSignUp.buttonPhotoDelete')" v-if="imageFile" @click="deleteImage" />
         </div>
 
         <div class="modal__input-wrapper">
-          <UiInputMain
-            class="modal__input"
-            type="text"
-            theme="primary"
-            :placeholder="$t('popupSignUp.placeholders[0]')"
-            v-model="user.name"
-          />
-          <UiInputMain
-            class="modal__input"
-            type="text"
-            theme="primary"
-            :placeholder="$t('popupSignUp.placeholders[1]')"
-            v-model="user.surname"
-          />
+          <UiInputMain class="modal__input" type="text" theme="primary" :placeholder="$t('popupSignUp.placeholders[0]')"
+            v-model="user.name" />
+          <UiInputMain class="modal__input" type="text" theme="primary" :placeholder="$t('popupSignUp.placeholders[1]')"
+            v-model="user.surname" />
         </div>
-        <UiInputMain
-          class="modal__input"
-          type="text"
-          theme="primary"
-          :placeholder="$t('popupSignUp.placeholders[2]')"
-          v-model="user.description"
-        />
-        <UiInputMain
-          class="modal__input"
-          type="email"
-          theme="primary"
-          :placeholder="$t('popupSignUp.placeholders[3]')"
-          v-model="user.email"
-        />
+        <UiInputMain class="modal__input" type="text" theme="primary" :placeholder="$t('popupSignUp.placeholders[2]')"
+          v-model="user.description" />
+        <UiInputMain class="modal__input" type="email" theme="primary" :placeholder="$t('popupSignUp.placeholders[3]')"
+          v-model="user.email" />
 
-        <UiInputMain
-          class="modal__input"
-          type="password"
-          theme="primary"
-          :placeholder="$t('popupSignUp.placeholders[4]')"
-          v-model="user.password"
-        />
-        <UiInputMain
-          class="modal__input"
-          type="password"
-          theme="primary"
-          :placeholder="$t('popupSignUp.placeholders[5]')"
-          v-model="user.password_repeat"
-        />
+        <UiInputMain class="modal__input" type="password" theme="primary" :placeholder="$t('popupSignUp.placeholders[4]')"
+          v-model="user.password" />
+        <UiInputMain class="modal__input" type="password" theme="primary" :placeholder="$t('popupSignUp.placeholders[5]')"
+          v-model="user.password_repeat" />
         <div class="modal__checkbox-wrapper">
-          <input
-            class="modal__checkbox"
-            type="checkbox"
-            v-model="user.privacy"
-          />
+          <input class="modal__checkbox" type="checkbox" v-model="user.privacy" />
           <p class="modal__checkbox-label">{{ $t("popupSignUp.label") }}</p>
         </div>
 
-        <UiButtonMain
-          class="modal__button"
-          theme="primary"
-          width="100%"
-          :title="$t('popupSignUp.buttonCreate')"
-          :class="{
-            disabled: !areAllFiledsFilled,
-          }"
-          @click="signupUser(user)"
-        />
+        <UiButtonMain class="modal__button" theme="primary" width="100%" :title="$t('popupSignUp.buttonCreate')" :class="{
+                  disabled: !areAllFiledsFilled,
+                }" @click="signupUser(user)" />
 
         <p class="modal__error">
           {{ errorMessage }}
@@ -212,12 +169,7 @@ let errorMessage = ref("");
       </div>
     </div>
 
-    <Icon
-      class="modal__close-button"
-      @click="emit('close')"
-      name="PopupClose"
-      size="24"
-    />
+    <Icon class="modal__close-button" @click="emit('close')" name="PopupClose" size="24" />
   </div>
 </template>
 
@@ -252,6 +204,7 @@ let errorMessage = ref("");
     color: #3a3a44;
     margin-bottom: 20px;
   }
+
   &__description-span {
     color: #dd6738;
     cursor: pointer;

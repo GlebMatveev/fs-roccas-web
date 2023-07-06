@@ -1,21 +1,35 @@
 <script setup>
+// Stores
+import { usePopupStore } from '@/store/popup';
+const popupStore = usePopupStore();
+
 // Props
 const props = defineProps({
   show: Boolean,
 });
 
+
 // Emits
 const emit = defineEmits(["close", "to-sign-up"]);
+
 
 // Environment Variables
 const runtimeConfig = useRuntimeConfig();
 
+
+// Auth data
+const basicAuth = {
+  Authorization: `Basic ${runtimeConfig.public.basicAuth}`,
+};
+
+
 // Router parameters
 const router = useRouter();
 
+
 // States
-const useStatePopupSignIn = useState("statePopupSignIn");
 const useStateToPath = useState("stateToPath");
+
 
 // I18n
 const { t } = useI18n();
@@ -26,6 +40,7 @@ const errorMsg2 = computed(() => {
   return t("popupSignIn.errors[1]");
 });
 
+
 // Variables
 const user = reactive({
   email: "",
@@ -33,9 +48,11 @@ const user = reactive({
 });
 let errorMessage = ref("");
 
+
 // Functions
 function loginUser(user) {
   $fetch("/auth/signin", {
+    headers: basicAuth,
     method: "POST",
     baseURL: runtimeConfig.public.apiBase,
     body: user,
@@ -62,8 +79,9 @@ function loginUser(user) {
 }
 
 function closePopupSignIn() {
-  useStatePopupSignIn.value = false;
+  popupStore.popupSignIn = false;
 }
+
 
 // Computed
 const areAllFiledsFilled = computed(() => {
@@ -87,31 +105,14 @@ const areAllFiledsFilled = computed(() => {
           </span>
         </p>
 
-        <UiInputMain
-          class="modal__input"
-          type="text"
-          theme="primary"
-          :placeholder="$t('popupSignIn.placeholders[0]')"
-          v-model="user.email"
-        />
-        <UiInputMain
-          class="modal__input"
-          type="password"
-          theme="primary"
-          :placeholder="$t('popupSignIn.placeholders[1]')"
-          v-model="user.password"
-        />
+        <UiInputMain class="modal__input" type="text" theme="primary" :placeholder="$t('popupSignIn.placeholders[0]')"
+          v-model="user.email" />
+        <UiInputMain class="modal__input" type="password" theme="primary" :placeholder="$t('popupSignIn.placeholders[1]')"
+          v-model="user.password" />
 
-        <UiButtonMain
-          class="modal__button"
-          theme="primary"
-          width="100%"
-          :title="$t('popupSignIn.button')"
-          :class="{
-            disabled: !areAllFiledsFilled,
-          }"
-          @click="loginUser(user)"
-        />
+        <UiButtonMain class="modal__button" theme="primary" width="100%" :title="$t('popupSignIn.button')" :class="{
+                  disabled: !areAllFiledsFilled,
+                }" @click="loginUser(user)" />
 
         <p class="modal__error">
           {{ errorMessage }}
@@ -119,12 +120,7 @@ const areAllFiledsFilled = computed(() => {
       </div>
     </div>
 
-    <Icon
-      class="modal__close-button"
-      @click="emit('close')"
-      name="PopupClose"
-      size="24"
-    />
+    <Icon class="modal__close-button" @click="emit('close')" name="PopupClose" size="24" />
   </div>
 </template>
 
@@ -159,6 +155,7 @@ const areAllFiledsFilled = computed(() => {
     color: #3a3a44;
     margin-bottom: 20px;
   }
+
   &__description-span {
     color: #dd6738;
     cursor: pointer;

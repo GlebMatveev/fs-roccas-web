@@ -1,30 +1,38 @@
 <script setup>
+// Stores
+import { usePopupStore } from '@/store/popup';
+const popupStore = usePopupStore();
+
+
 // Environment Variables
 const runtimeConfig = useRuntimeConfig();
 
-// States
-const useStatePopupSuccess = useState("statePopupSuccess");
 
+// Auth data
+const basicAuth = {
+  Authorization: `Basic ${runtimeConfig.public.basicAuth}`,
+};
+
+
+// Variables
 const request = reactive({
   user_id: localStorage.userId,
-  // name: "",
   email: "",
-  // phone: "",
   subject: "",
   description: "",
 });
 
+
 // Functions
 function postRequest(request) {
   $fetch("/requests", {
+    headers: basicAuth,
     method: "POST",
     baseURL: runtimeConfig.public.apiBase,
     body: request,
   }).then(function () {
-    useStatePopupSuccess.value = true;
-    // request.name = "";
+    popupStore.popupSuccess = true;
     request.email = "";
-    // request.phone = "";
     request.subject = "";
     request.description = "";
   });
@@ -33,9 +41,7 @@ function postRequest(request) {
 // Computed
 const areAllFiledsFilled = computed(() => {
   if (
-    // request.name !== "" &&
     request.email !== "" &&
-    // request.phone !== "" &&
     request.subject !== "" &&
     request.description !== ""
   ) {
@@ -57,51 +63,15 @@ const areAllFiledsFilled = computed(() => {
           {{ $t("static.business.form.description") }}
         </p>
         <div class="form__block">
-          <!-- <UiInputMain
-            class="form__block-input"
-            :placeholder="$t('static.business.form.placeholders[0]')"
-            theme="primary"
-            width="100%"
-            v-model="request.name"
-          /> -->
-          <UiInputMain
-            class="form__block-input"
-            :placeholder="$t('static.business.form.placeholders[1]')"
-            theme="primary"
-            width="100%"
-            v-model="request.email"
-          />
-          <!-- <UiInputMain
-            class="form__block-input"
-            :placeholder="$t('static.business.form.placeholders[2]')"
-            theme="primary"
-            width="100%"
-            v-model="request.phone"
-          /> -->
-          <UiInputMain
-            class="form__block-input"
-            :placeholder="$t('static.business.form.placeholders[3]')"
-            theme="primary"
-            width="100%"
-            v-model="request.subject"
-          />
-          <UiTextareaMain
-            class="form__block-input"
-            :placeholder="$t('static.business.form.placeholders[4]')"
-            theme="primary"
-            width="100%"
-            rows="7"
-            v-model="request.description"
-          />
-          <UiButtonMain
-            :title="$t('static.business.form.button')"
-            theme="primary"
-            width="100%"
-            :class="{
-              disabled: !areAllFiledsFilled,
-            }"
-            @click="postRequest(request)"
-          />
+          <UiInputMain class="form__block-input" :placeholder="$t('static.business.form.placeholders[1]')" theme="primary"
+            width="100%" v-model="request.email" />
+          <UiInputMain class="form__block-input" :placeholder="$t('static.business.form.placeholders[3]')" theme="primary"
+            width="100%" v-model="request.subject" />
+          <UiTextareaMain class="form__block-input" :placeholder="$t('static.business.form.placeholders[4]')"
+            theme="primary" width="100%" rows="7" v-model="request.description" />
+          <UiButtonMain :title="$t('static.business.form.button')" theme="primary" width="100%" :class="{
+                      disabled: !areAllFiledsFilled,
+                    }" @click="postRequest(request)" />
         </div>
       </div>
     </div>
@@ -121,6 +91,7 @@ const areAllFiledsFilled = computed(() => {
     padding: 60px;
     border-radius: 30px;
   }
+
   &__title {
     font-family: "Russo One";
     font-style: normal;
@@ -131,6 +102,7 @@ const areAllFiledsFilled = computed(() => {
     max-width: 705px;
     margin-bottom: 20px;
   }
+
   &__description {
     font-style: normal;
     font-weight: 500;
@@ -172,12 +144,15 @@ const areAllFiledsFilled = computed(() => {
     &__wrapper {
       padding: 30px;
     }
+
     &__title {
       font-size: 25px;
     }
+
     &__description {
       font-size: 16px;
     }
+
     &__block {
       width: 100%;
     }

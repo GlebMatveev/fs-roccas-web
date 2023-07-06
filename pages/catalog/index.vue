@@ -1,7 +1,4 @@
 <script setup>
-// States
-const useStateLoaderContent = useState("stateLoaderContent");
-
 useHead({
   title: "Roccas | Catalog",
 });
@@ -16,18 +13,7 @@ useHead({
         </h2>
         <UiInputSearch class="catalog__search" />
         <AppCatalogFilterBar />
-
-        <!-- <AppLoaderContent v-if="useStateLoaderContent" />
-        <div v-else class="catalog__projects">
-          <UiCardProject
-            class="catalog__projects-item"
-            :project="item"
-            v-for="item in useStateProducts.payload"
-          />
-        </div> -->
-
         <AppCatalogContent />
-
         <div class="catalog__paginator">
           <AppCatalogPaginator />
         </div>

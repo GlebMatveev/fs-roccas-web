@@ -1,6 +1,7 @@
 <script setup>
-// States
-const useStatePopupSignUp = useState("statePopupSignUp");
+// Stores
+import { usePopupStore } from '@/store/popup';
+const popupStore = usePopupStore();
 </script>
 
 <template>
@@ -30,14 +31,8 @@ const useStatePopupSignUp = useState("statePopupSignUp");
             <Icon name="CommunityOffer03" size="32" />
           </div>
         </div>
-        <UiButtonMain
-          class="offer__items-button"
-          :title="$t('static.community.offer.button')"
-          theme="primary"
-          icon-name="ButtonArrowRight"
-          icon-size="18"
-          @click="useStatePopupSignUp = true"
-        />
+        <UiButtonMain class="offer__items-button" :title="$t('static.community.offer.button')" theme="primary"
+          icon-name="ButtonArrowRight" icon-size="18" @click="popupStore.popupSignUp = true" />
       </div>
     </div>
   </section>

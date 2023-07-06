@@ -1,6 +1,7 @@
 <script setup>
-// States
-const useStatePopupSignUp = useState("statePopupSignUp");
+// Stores
+import { usePopupStore } from '@/store/popup';
+const popupStore = usePopupStore();
 </script>
 
 <template>
@@ -14,19 +15,10 @@ const useStatePopupSignUp = useState("statePopupSignUp");
           <p class="company__text-description">
             {{ $t("static.jobs.company.description") }}
           </p>
-          <UiButtonMain
-            :title="$t('static.jobs.company.button')"
-            theme="primary"
-            icon-name="ButtonArrowRight"
-            icon-size="18"
-            @click="useStatePopupSignUp = true"
-          />
+          <UiButtonMain :title="$t('static.jobs.company.button')" theme="primary" icon-name="ButtonArrowRight"
+            icon-size="18" @click="popupStore.popupSignUp = true" />
         </div>
-        <img
-          src="/img/static/jobs/company.png"
-          alt="Company"
-          class="company__image"
-        />
+        <img src="/img/static/jobs/company.png" alt="Company" class="company__image" />
       </div>
     </div>
   </section>
@@ -58,6 +50,7 @@ const useStatePopupSignUp = useState("statePopupSignUp");
       color: #3a3a44;
       margin-bottom: 20px;
     }
+
     &-description {
       font-style: normal;
       font-weight: 500;

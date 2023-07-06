@@ -1,4 +1,8 @@
 <script setup>
+// Stores
+import { usePopupStore } from '@/store/popup';
+const popupStore = usePopupStore();
+
 // Environment Variables
 const runtimeConfig = useRuntimeConfig();
 
@@ -20,9 +24,6 @@ const product = products.value[0];
 const useStateCurrency = useState("stateCurrency");
 const useStatePopupCurrentPrice = useState("statePopupCurrentPrice");
 const useStatePopupCurrentProduct = useState("statePopupCurrentProduct");
-const useStatePopupCheckout = useState("statePopupCheckout");
-const useStatePopupSignIn = useState("statePopupSignIn");
-const useStatePopupSignUp = useState("statePopupSignUp");
 const useStateToPath = useState("stateToPath");
 
 function checkAuth(price, productName) {
@@ -39,6 +40,7 @@ function checkAuth(price, productName) {
     };
 
     $fetch("/auth/token", {
+      headers: basicAuth,
       method: "POST",
       baseURL: runtimeConfig.public.apiBase,
       body: checkToken,
@@ -62,12 +64,12 @@ function checkAuth(price, productName) {
 function openCheckoutPopup(price, productName) {
   useStatePopupCurrentPrice.value = price;
   useStatePopupCurrentProduct.value = productName;
-  useStatePopupCheckout.value = true;
+  popupStore.popupCheckout = true;
 }
 
 function toSignIn() {
-  useStatePopupSignUp.value = false;
-  useStatePopupSignIn.value = true;
+  popupStore.popupSignUp = false;
+  popupStore.popupSignIn = true;
 }
 
 function calcCurrencyRate(price) {
@@ -116,8 +118,9 @@ useHead({
               {{ product.developer }}
             </p>
           </div>
-          <UiButtonMain theme="primary" :title="`${$t('static.catalogDetail.button')}:
-                              ${calcCurrencyRate(product.price)} ${useStateCurrency.code}`"
+          <UiButtonMain theme="primary"
+            :title="`${$t('static.catalogDetail.button')}:
+                                                                        ${calcCurrencyRate(product.price)} ${useStateCurrency.code}`"
             @click="checkAuth(product.price, product.name)" />
         </div>
       </div>
