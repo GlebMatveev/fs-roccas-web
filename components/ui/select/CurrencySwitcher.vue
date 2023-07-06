@@ -1,6 +1,7 @@
 <script setup>
-// States
-const useStateCurrency = useState("stateCurrency");
+// Stores
+import { useCartStore } from "@/store/cart";
+const cartStore = useCartStore();
 
 const currencies = [
   {
@@ -24,9 +25,12 @@ const currencies = [
       class="currency__wrapper"
       name="currency"
       id="currency"
-      v-model="useStateCurrency"
+      v-model="cartStore.currentCurrency"
     >
-      <option v-for="item in currencies" :value="item">
+      <option
+        v-for="item in currencies"
+        :value="item"
+      >
         {{ item.code }}
       </option>
     </select>

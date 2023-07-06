@@ -2,16 +2,12 @@
 // Props
 const props = defineProps({
   project: Object,
+  currency: Object,
 });
-
-// States
-const useStateCurrency = useState("stateCurrency");
 
 // Functions
 function calcCurrencyRate(price) {
-  return (parseFloat(price) * parseFloat(useStateCurrency.value.rate)).toFixed(
-    2
-  );
+  return (parseFloat(price) * parseFloat(props.currency.rate)).toFixed(2);
 }
 
 // Image placeholder
@@ -35,7 +31,7 @@ function replaceImgByDefault(e) {
       {{ project.name }}
     </p>
     <p class="project__price">
-      {{ calcCurrencyRate(project.price) }} {{ useStateCurrency.code }}
+      {{ calcCurrencyRate(project.price) }} {{ props.currency.code }}
     </p>
   </div>
 </template>
@@ -51,6 +47,7 @@ function replaceImgByDefault(e) {
     border-radius: 20px;
     margin-bottom: 10px;
   }
+
   &__title {
     font-style: normal;
     font-weight: 400;
@@ -64,6 +61,7 @@ function replaceImgByDefault(e) {
     margin-bottom: 10px;
     padding: 0 10px;
   }
+
   &__price {
     font-style: normal;
     font-weight: 400;

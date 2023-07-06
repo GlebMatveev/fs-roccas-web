@@ -32,7 +32,12 @@ const props = defineProps({
           size="24"
         />
       </div>
-      <p class="qa-block__answer" v-if="item.toggle">{{ item.answer }}</p>
+      <p
+        class="qa-block__answer"
+        v-if="item.toggle"
+      >
+        {{ item.answer }}
+      </p>
     </div>
   </section>
 </template>

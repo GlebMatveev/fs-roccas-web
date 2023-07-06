@@ -1,19 +1,32 @@
 <script setup>
 // Stores
-import { useProductStore } from '@/store/product';
-import { useLoaderStore } from '@/store/loader';
+import { useProductStore } from "@/store/product";
+import { useLoaderStore } from "@/store/loader";
+import { useCartStore } from "@/store/cart";
 
 const productStore = useProductStore();
 const loaderStore = useLoaderStore();
+const cartStore = useCartStore();
 </script>
 
 <template>
-  <section class="content" v-if="productStore.products">
+  <section
+    class="content"
+    v-if="productStore.products"
+  >
     <div class="container">
       <AppLoaderContent v-if="loaderStore.loaderContent" />
-      <div v-else class="content__wrapper">
-        <UiCardProject class="content__wrapper-item" :project="item" v-for="item in productStore.products.payload"
-          :key="item.id" />
+      <div
+        v-else
+        class="content__wrapper"
+      >
+        <UiCardProject
+          class="content__wrapper-item"
+          :project="item"
+          :currency="cartStore.currentCurrency"
+          v-for="item in productStore.products.payload"
+          :key="item.id"
+        />
       </div>
     </div>
   </section>

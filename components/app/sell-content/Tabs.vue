@@ -1,6 +1,6 @@
 <script setup>
 // Stores
-import { usePopupStore } from '@/store/popup';
+import { usePopupStore } from "@/store/popup";
 const popupStore = usePopupStore();
 
 const tabs = reactive([true, false, false]);
@@ -25,24 +25,39 @@ function toggleTabs(tabNumber) {
           {{ $t("static.sellContent.tabs.description") }}
         </p>
         <div class="tabs__buttons">
-          <div class="tabs__buttons-item" :class="{ 'tabs__buttons-item--active': tabs[0] }" @click="toggleTabs(0)">
+          <div
+            class="tabs__buttons-item"
+            :class="{ 'tabs__buttons-item--active': tabs[0] }"
+            @click="toggleTabs(0)"
+          >
             <p class="tabs__buttons-title">
               {{ $t("static.sellContent.tabs.buttons[0]") }}
             </p>
           </div>
-          <div class="tabs__buttons-item" :class="{ 'tabs__buttons-item--active': tabs[1] }" @click="toggleTabs(1)">
+          <div
+            class="tabs__buttons-item"
+            :class="{ 'tabs__buttons-item--active': tabs[1] }"
+            @click="toggleTabs(1)"
+          >
             <p class="tabs__buttons-title">
               {{ $t("static.sellContent.tabs.buttons[1]") }}
             </p>
           </div>
-          <div class="tabs__buttons-item" :class="{ 'tabs__buttons-item--active': tabs[2] }" @click="toggleTabs(2)">
+          <div
+            class="tabs__buttons-item"
+            :class="{ 'tabs__buttons-item--active': tabs[2] }"
+            @click="toggleTabs(2)"
+          >
             <p class="tabs__buttons-title">
               {{ $t("static.sellContent.tabs.buttons[2]") }}
             </p>
           </div>
         </div>
         <div class="tabs__items">
-          <div class="tabs__items-card" v-show="tabs[0]">
+          <div
+            class="tabs__items-card"
+            v-show="tabs[0]"
+          >
             <div class="tabs__items-text">
               <h3 class="tabs__items-title">
                 {{ $t("static.sellContent.tabs.items[0].title") }}
@@ -50,12 +65,24 @@ function toggleTabs(tabNumber) {
               <p class="tabs__items-description">
                 {{ $t("static.sellContent.tabs.items[0].description") }}
               </p>
-              <UiButtonMain :title="$t('static.sellContent.tabs.items[0].button')" theme="primary"
-                icon-name="ButtonArrowRight" icon-size="18" @click="popupStore.popupSignUp = true" />
+              <UiButtonMain
+                :title="$t('static.sellContent.tabs.items[0].button')"
+                theme="primary"
+                icon-name="ButtonArrowRight"
+                icon-size="18"
+                @click="popupStore.popupSignUp = true"
+              />
             </div>
-            <img src="/img/static/sell-content/tabs-01.png" alt="Tab" class="tabs__items-image" />
+            <img
+              src="/img/static/sell-content/tabs-01.png"
+              alt="Tab"
+              class="tabs__items-image"
+            />
           </div>
-          <div class="tabs__items-card" v-show="tabs[1]">
+          <div
+            class="tabs__items-card"
+            v-show="tabs[1]"
+          >
             <div class="tabs__items-text">
               <h3 class="tabs__items-title">
                 {{ $t("static.sellContent.tabs.items[1].title") }}
@@ -63,12 +90,24 @@ function toggleTabs(tabNumber) {
               <p class="tabs__items-description">
                 {{ $t("static.sellContent.tabs.items[1].description") }}
               </p>
-              <UiButtonMain :title="$t('static.sellContent.tabs.items[1].button')" theme="primary"
-                icon-name="ButtonArrowRight" icon-size="18" @click="popupStore.popupSignUp = true" />
+              <UiButtonMain
+                :title="$t('static.sellContent.tabs.items[1].button')"
+                theme="primary"
+                icon-name="ButtonArrowRight"
+                icon-size="18"
+                @click="popupStore.popupSignUp = true"
+              />
             </div>
-            <img src="/img/static/sell-content/tabs-02.png" alt="Tab" class="tabs__items-image" />
+            <img
+              src="/img/static/sell-content/tabs-02.png"
+              alt="Tab"
+              class="tabs__items-image"
+            />
           </div>
-          <div class="tabs__items-card" v-show="tabs[2]">
+          <div
+            class="tabs__items-card"
+            v-show="tabs[2]"
+          >
             <div class="tabs__items-text">
               <h3 class="tabs__items-title">
                 {{ $t("static.sellContent.tabs.items[2].title") }}
@@ -76,10 +115,19 @@ function toggleTabs(tabNumber) {
               <p class="tabs__items-description">
                 {{ $t("static.sellContent.tabs.items[2].description") }}
               </p>
-              <UiButtonMain :title="$t('static.sellContent.tabs.items[2].button')" theme="primary"
-                icon-name="ButtonArrowRight" icon-size="18" @click="popupStore.popupSignUp = true" />
+              <UiButtonMain
+                :title="$t('static.sellContent.tabs.items[2].button')"
+                theme="primary"
+                icon-name="ButtonArrowRight"
+                icon-size="18"
+                @click="popupStore.popupSignUp = true"
+              />
             </div>
-            <img src="/img/static/sell-content/tabs-03.png" alt="Tab" class="tabs__items-image" />
+            <img
+              src="/img/static/sell-content/tabs-03.png"
+              alt="Tab"
+              class="tabs__items-image"
+            />
           </div>
         </div>
       </div>
@@ -131,7 +179,7 @@ function toggleTabs(tabNumber) {
       background-color: #dd6738;
     }
 
-    &-item--active>p {
+    &-item--active > p {
       color: #ffffff;
     }
 

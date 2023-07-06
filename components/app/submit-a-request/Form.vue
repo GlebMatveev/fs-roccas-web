@@ -1,18 +1,15 @@
 <script setup>
 // Stores
-import { usePopupStore } from '@/store/popup';
+import { usePopupStore } from "@/store/popup";
 const popupStore = usePopupStore();
-
 
 // Environment Variables
 const runtimeConfig = useRuntimeConfig();
-
 
 // Auth data
 const basicAuth = {
   Authorization: `Basic ${runtimeConfig.public.basicAuth}`,
 };
-
 
 // Variables
 const request = reactive({
@@ -21,7 +18,6 @@ const request = reactive({
   subject: "",
   description: "",
 });
-
 
 // Functions
 function postRequest(request) {
@@ -59,24 +55,45 @@ const areAllFiledsFilled = computed(() => {
         <h2 class="form__title">
           {{ $t("static.submitARequest.form.title") }}
         </h2>
-        <UiInputMain class="form__input" :placeholder="$t('static.submitARequest.form.input1')" theme="primary"
-          width="100%" v-model="request.email" />
-        <UiInputMain class="form__input" :placeholder="$t('static.submitARequest.form.input2')" theme="primary"
-          width="100%" v-model="request.subject" />
+        <UiInputMain
+          class="form__input"
+          :placeholder="$t('static.submitARequest.form.input1')"
+          theme="primary"
+          width="100%"
+          v-model="request.email"
+        />
+        <UiInputMain
+          class="form__input"
+          :placeholder="$t('static.submitARequest.form.input2')"
+          theme="primary"
+          width="100%"
+          v-model="request.subject"
+        />
         <p class="form__label">
           {{ $t("static.submitARequest.form.description1") }}
         </p>
-        <UiTextareaMain class="form__textarea" :placeholder="$t('static.submitARequest.form.textarea')" theme="primary"
-          width="100%" rows="5" v-model="request.description" />
+        <UiTextareaMain
+          class="form__textarea"
+          :placeholder="$t('static.submitARequest.form.textarea')"
+          theme="primary"
+          width="100%"
+          rows="5"
+          v-model="request.description"
+        />
         <p class="form__label">
           {{ $t("static.submitARequest.form.description2") }}
         </p>
         <p class="form__label">
           {{ $t("static.submitARequest.form.description3") }}
         </p>
-        <UiButtonMain :title="$t('static.submitARequest.form.button')" theme="primary" :class="{
-                  disabled: !areAllFiledsFilled,
-                }" @click="postRequest(request)" />
+        <UiButtonMain
+          :title="$t('static.submitARequest.form.button')"
+          theme="primary"
+          :class="{
+            disabled: !areAllFiledsFilled,
+          }"
+          @click="postRequest(request)"
+        />
       </div>
     </div>
   </section>

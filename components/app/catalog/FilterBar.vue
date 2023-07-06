@@ -1,15 +1,13 @@
 <script setup>
 // Stores
-import { useProductStore } from '@/store/product';
-import { useFilterStore } from '@/store/filter';
+import { useProductStore } from "@/store/product";
+import { useFilterStore } from "@/store/filter";
 
 const productStore = useProductStore();
 const filterStore = useFilterStore();
 
-
 // Router parameters
 const router = useRouter();
-
 
 // Functions
 function applyFilterAndRouterPush(category) {
@@ -44,29 +42,49 @@ function updateCategoriesCheckbox(id) {
 <template>
   <div class="bar">
     <ul class="bar__categories">
-      <li class="bar__categories-item" :class="{
-        'bar__categories-item--active': updateCategoriesCheckbox('0'),
-      }" @click="clearFilterAndRouterPush()">
+      <li
+        class="bar__categories-item"
+        :class="{
+          'bar__categories-item--active': updateCategoriesCheckbox('0'),
+        }"
+        @click="clearFilterAndRouterPush()"
+      >
         <p>{{ $t("static.catalog.categories[0]") }}</p>
       </li>
-      <li class="bar__categories-item" :class="{
-        'bar__categories-item--active': updateCategoriesCheckbox('1'),
-      }" @click="applyFilterAndRouterPush('1')">
+      <li
+        class="bar__categories-item"
+        :class="{
+          'bar__categories-item--active': updateCategoriesCheckbox('1'),
+        }"
+        @click="applyFilterAndRouterPush('1')"
+      >
         <p>{{ $t("static.catalog.categories[1]") }}</p>
       </li>
-      <li class="bar__categories-item" :class="{
-        'bar__categories-item--active': updateCategoriesCheckbox('2'),
-      }" @click="applyFilterAndRouterPush('2')">
+      <li
+        class="bar__categories-item"
+        :class="{
+          'bar__categories-item--active': updateCategoriesCheckbox('2'),
+        }"
+        @click="applyFilterAndRouterPush('2')"
+      >
         <p>{{ $t("static.catalog.categories[2]") }}</p>
       </li>
-      <li class="bar__categories-item" :class="{
-        'bar__categories-item--active': updateCategoriesCheckbox('3'),
-      }" @click="applyFilterAndRouterPush('3')">
+      <li
+        class="bar__categories-item"
+        :class="{
+          'bar__categories-item--active': updateCategoriesCheckbox('3'),
+        }"
+        @click="applyFilterAndRouterPush('3')"
+      >
         <p>{{ $t("static.catalog.categories[3]") }}</p>
       </li>
-      <li class="bar__categories-item" :class="{
-        'bar__categories-item--active': updateCategoriesCheckbox('4'),
-      }" @click="applyFilterAndRouterPush('4')">
+      <li
+        class="bar__categories-item"
+        :class="{
+          'bar__categories-item--active': updateCategoriesCheckbox('4'),
+        }"
+        @click="applyFilterAndRouterPush('4')"
+      >
         <p>{{ $t("static.catalog.categories[4]") }}</p>
       </li>
     </ul>

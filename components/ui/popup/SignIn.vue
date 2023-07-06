@@ -1,6 +1,6 @@
 <script setup>
 // Stores
-import { usePopupStore } from '@/store/popup';
+import { usePopupStore } from "@/store/popup";
 const popupStore = usePopupStore();
 
 // Props
@@ -8,28 +8,22 @@ const props = defineProps({
   show: Boolean,
 });
 
-
 // Emits
 const emit = defineEmits(["close", "to-sign-up"]);
 
-
 // Environment Variables
 const runtimeConfig = useRuntimeConfig();
-
 
 // Auth data
 const basicAuth = {
   Authorization: `Basic ${runtimeConfig.public.basicAuth}`,
 };
 
-
 // Router parameters
 const router = useRouter();
 
-
 // States
-const useStateToPath = useState("stateToPath");
-
+const useStateToRouteAfterAuth = useState("stateToRouteAfterAuth");
 
 // I18n
 const { t } = useI18n();
@@ -40,14 +34,12 @@ const errorMsg2 = computed(() => {
   return t("popupSignIn.errors[1]");
 });
 
-
 // Variables
 const user = reactive({
   email: "",
   password: "",
 });
 let errorMessage = ref("");
-
 
 // Functions
 function loginUser(user) {
@@ -73,7 +65,7 @@ function loginUser(user) {
       user.email = "";
       user.password = "";
       closePopupSignIn();
-      router.push(useStateToPath.value);
+      router.push(useStateToRouteAfterAuth.value);
     }
   });
 }
@@ -81,7 +73,6 @@ function loginUser(user) {
 function closePopupSignIn() {
   popupStore.popupSignIn = false;
 }
-
 
 // Computed
 const areAllFiledsFilled = computed(() => {
@@ -94,25 +85,48 @@ const areAllFiledsFilled = computed(() => {
 </script>
 
 <template>
-  <div v-if="show" class="modal__overlay">
+  <div
+    v-if="show"
+    class="modal__overlay"
+  >
     <div class="modal">
       <div class="modal__form">
         <h2 class="modal__title">{{ $t("popupSignIn.title") }}</h2>
         <p class="modal__description">
           {{ $t("popupSignIn.description") }}
-          <span class="modal__description-span" @click="emit('to-sign-up')">
+          <span
+            class="modal__description-span"
+            @click="emit('to-sign-up')"
+          >
             {{ $t("popupSignIn.link") }}
           </span>
         </p>
 
-        <UiInputMain class="modal__input" type="text" theme="primary" :placeholder="$t('popupSignIn.placeholders[0]')"
-          v-model="user.email" />
-        <UiInputMain class="modal__input" type="password" theme="primary" :placeholder="$t('popupSignIn.placeholders[1]')"
-          v-model="user.password" />
+        <UiInputMain
+          class="modal__input"
+          type="text"
+          theme="primary"
+          :placeholder="$t('popupSignIn.placeholders[0]')"
+          v-model="user.email"
+        />
+        <UiInputMain
+          class="modal__input"
+          type="password"
+          theme="primary"
+          :placeholder="$t('popupSignIn.placeholders[1]')"
+          v-model="user.password"
+        />
 
-        <UiButtonMain class="modal__button" theme="primary" width="100%" :title="$t('popupSignIn.button')" :class="{
-                  disabled: !areAllFiledsFilled,
-                }" @click="loginUser(user)" />
+        <UiButtonMain
+          class="modal__button"
+          theme="primary"
+          width="100%"
+          :title="$t('popupSignIn.button')"
+          :class="{
+            disabled: !areAllFiledsFilled,
+          }"
+          @click="loginUser(user)"
+        />
 
         <p class="modal__error">
           {{ errorMessage }}
@@ -120,7 +134,12 @@ const areAllFiledsFilled = computed(() => {
       </div>
     </div>
 
-    <Icon class="modal__close-button" @click="emit('close')" name="PopupClose" size="24" />
+    <Icon
+      class="modal__close-button"
+      @click="emit('close')"
+      name="PopupClose"
+      size="24"
+    />
   </div>
 </template>
 

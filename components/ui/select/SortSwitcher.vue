@@ -1,7 +1,7 @@
 <script setup>
 // Stores
-import { useProductStore } from '@/store/product';
-import { useFilterStore } from '@/store/filter';
+import { useProductStore } from "@/store/product";
+import { useFilterStore } from "@/store/filter";
 
 const productStore = useProductStore();
 const filterStore = useFilterStore();
@@ -10,8 +10,13 @@ const filterStore = useFilterStore();
 <template>
   <div class="sortswitcher">
     <p class="sortswitcher__title">{{ $t("sortSwitcher.title") }}</p>
-    <select class="sortswitcher__wrapper" name="sortswitcher" id="sortswitcher"
-      v-model="filterStore.filters.sort_direction" @change="productStore.getProducts()">
+    <select
+      class="sortswitcher__wrapper"
+      name="sortswitcher"
+      id="sortswitcher"
+      v-model="filterStore.filters.sort_direction"
+      @change="productStore.getProducts()"
+    >
       <option value="desc">
         {{ $t("sortSwitcher.options[0]") }}
       </option>

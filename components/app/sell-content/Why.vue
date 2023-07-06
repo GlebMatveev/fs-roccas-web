@@ -7,7 +7,10 @@
         </h2>
         <div class="why__items">
           <div class="why__items-card">
-            <Icon name="SellContentWhy01" size="42" />
+            <Icon
+              name="SellContentWhy01"
+              size="42"
+            />
             <h3 class="why__items-title">
               {{ $t("static.sellContent.why.items[0].title") }}
             </h3>
@@ -16,7 +19,10 @@
             </p>
           </div>
           <div class="why__items-card">
-            <Icon name="SellContentWhy02" size="42" />
+            <Icon
+              name="SellContentWhy02"
+              size="42"
+            />
             <h3 class="why__items-title">
               {{ $t("static.sellContent.why.items[1].title") }}
             </h3>
@@ -25,7 +31,10 @@
             </p>
           </div>
           <div class="why__items-card">
-            <Icon name="SellContentWhy03" size="42" />
+            <Icon
+              name="SellContentWhy03"
+              size="42"
+            />
             <h3 class="why__items-title">
               {{ $t("static.sellContent.why.items[2].title") }}
             </h3>

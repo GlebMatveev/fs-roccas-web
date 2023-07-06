@@ -1,22 +1,40 @@
 <template>
   <ul class="links">
     <li class="links__item">
-      <NuxtLink class="links__item-link" to="/terms">
+      <NuxtLink
+        class="links__item-link"
+        to="/terms"
+      >
         {{ $t("textPageSidebar.buttons[0]") }}
       </NuxtLink>
-      <Icon name="TextPageArrowRight" size="24" />
+      <Icon
+        name="TextPageArrowRight"
+        size="24"
+      />
     </li>
     <li class="links__item">
-      <NuxtLink class="links__item-link" to="/privacy">
+      <NuxtLink
+        class="links__item-link"
+        to="/privacy"
+      >
         {{ $t("textPageSidebar.buttons[1]") }}
       </NuxtLink>
-      <Icon name="TextPageArrowRight" size="24" />
+      <Icon
+        name="TextPageArrowRight"
+        size="24"
+      />
     </li>
     <li class="links__item">
-      <NuxtLink class="links__item-link" to="/cookie">
+      <NuxtLink
+        class="links__item-link"
+        to="/cookie"
+      >
         {{ $t("textPageSidebar.buttons[2]") }}
       </NuxtLink>
-      <Icon name="TextPageArrowRight" size="24" />
+      <Icon
+        name="TextPageArrowRight"
+        size="24"
+      />
     </li>
   </ul>
 </template>

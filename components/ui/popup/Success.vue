@@ -9,7 +9,10 @@ const emit = defineEmits(["close"]);
 </script>
 
 <template>
-  <div v-if="show" class="modal__overlay">
+  <div
+    v-if="show"
+    class="modal__overlay"
+  >
     <div class="modal">
       <div class="modal__form">
         <h2 class="modal__title">

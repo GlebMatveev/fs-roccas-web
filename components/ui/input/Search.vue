@@ -3,7 +3,9 @@
 const runtimeConfig = useRuntimeConfig();
 
 // States
-const useStateSearchResultField = useState("stateSearchResultField");
+const useStateSearchResultsVisibility = useState(
+  "stateSearchResultsVisibility"
+);
 
 // Auth data
 const basicAuth = {
@@ -33,30 +35,59 @@ async function searchProducts() {
 async function startSearch() {
   // if (searchWord.value.length > 3) {
   await searchProducts();
-  useStateSearchResultField.value = true;
+  useStateSearchResultsVisibility.value = true;
   // }
 }
 
 function stopSearch() {
-  useStateSearchResultField.value = false;
+  useStateSearchResultsVisibility.value = false;
   searchWord.value = "";
 }
 </script>
 
 <template>
   <div class="search">
-    <UiInputMain class="search__input" theme="search" :placeholder="$t('search.placeholder')" border-radius="20px"
-      width="100%" height="64px" v-model="searchWord" />
-    <UiButtonMain class="search__button" :title="$t('search.button')" theme="primary" width="125px" height="54px"
-      @click="startSearch()" :loader="searchLoader" loader-path="/img/static/loader.gif" />
-    <div class="search__result" v-if="searchResult && useStateSearchResultField">
-      <div v-if="searchResult && searchResult.length > 0" class="search__result-wrapper">
-        <NuxtLink class="search__result-item" v-if="searchResult" v-for="item in searchResult.slice(0, 10)"
-          :to="`/catalog/${item.id}`" @click="stopSearch()">
+    <UiInputMain
+      class="search__input"
+      theme="search"
+      :placeholder="$t('search.placeholder')"
+      border-radius="20px"
+      width="100%"
+      height="64px"
+      v-model="searchWord"
+    />
+    <UiButtonMain
+      class="search__button"
+      :title="$t('search.button')"
+      theme="primary"
+      width="125px"
+      height="54px"
+      @click="startSearch()"
+      :loader="searchLoader"
+      loader-path="/img/static/loader.gif"
+    />
+    <div
+      class="search__result"
+      v-if="searchResult && useStateSearchResultsVisibility"
+    >
+      <div
+        v-if="searchResult && searchResult.length > 0"
+        class="search__result-wrapper"
+      >
+        <NuxtLink
+          class="search__result-item"
+          v-if="searchResult"
+          v-for="item in searchResult.slice(0, 10)"
+          :to="`/catalog/${item.id}`"
+          @click="stopSearch()"
+        >
           {{ item.name }}
         </NuxtLink>
       </div>
-      <h2 v-else class="search__result-notfound">
+      <h2
+        v-else
+        class="search__result-notfound"
+      >
         {{ $t("search.noresult") }}
       </h2>
     </div>

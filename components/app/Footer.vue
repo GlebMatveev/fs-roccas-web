@@ -1,15 +1,13 @@
 <script setup>
 // Stores
-import { useProductStore } from '@/store/product';
-import { useFilterStore } from '@/store/filter';
+import { useProductStore } from "@/store/product";
+import { useFilterStore } from "@/store/filter";
 
 const productStore = useProductStore();
 const filterStore = useFilterStore();
 
-
 // Router parameters
 const router = useRouter();
-
 
 // Functions
 function applyFilterAndRouterPush(category) {
@@ -33,8 +31,15 @@ function clearFilterAndRouterPush() {
   <footer class="footer">
     <div class="container">
       <div class="footer__wrapper">
-        <NuxtLink class="footer__logo-link" to="/">
-          <img class="footer__logo" src="/img/static/logo-light.png" alt="Logo" />
+        <NuxtLink
+          class="footer__logo-link"
+          to="/"
+        >
+          <img
+            class="footer__logo"
+            src="/img/static/logo-light.png"
+            alt="Logo"
+          />
         </NuxtLink>
 
         <div class="footer__content">
@@ -43,26 +48,41 @@ function clearFilterAndRouterPush() {
               {{ $t("footer.categories.title") }}
             </p>
             <ul class="footer__content-list">
-              <p class="footer__content-link" @click="clearFilterAndRouterPush()">
+              <p
+                class="footer__content-link"
+                @click="clearFilterAndRouterPush()"
+              >
                 {{ $t("footer.categories.items[0]") }}
               </p>
               <li class="footer__content-item">
-                <p class="footer__content-link" @click="applyFilterAndRouterPush('1')">
+                <p
+                  class="footer__content-link"
+                  @click="applyFilterAndRouterPush('1')"
+                >
                   {{ $t("footer.categories.items[1]") }}
                 </p>
               </li>
               <li class="footer__content-item">
-                <p class="footer__content-link" @click="applyFilterAndRouterPush('2')">
+                <p
+                  class="footer__content-link"
+                  @click="applyFilterAndRouterPush('2')"
+                >
                   {{ $t("footer.categories.items[2]") }}
                 </p>
               </li>
               <li class="footer__content-item">
-                <p class="footer__content-link" @click="applyFilterAndRouterPush('3')">
+                <p
+                  class="footer__content-link"
+                  @click="applyFilterAndRouterPush('3')"
+                >
                   {{ $t("footer.categories.items[3]") }}
                 </p>
               </li>
               <li class="footer__content-item">
-                <p class="footer__content-link" @click="applyFilterAndRouterPush('4')">
+                <p
+                  class="footer__content-link"
+                  @click="applyFilterAndRouterPush('4')"
+                >
                   {{ $t("footer.categories.items[4]") }}
                 </p>
               </li>
@@ -75,22 +95,34 @@ function clearFilterAndRouterPush() {
             </p>
             <ul class="footer__content-list">
               <li class="footer__content-item">
-                <NuxtLink class="footer__content-link" to="/business">
+                <NuxtLink
+                  class="footer__content-link"
+                  to="/business"
+                >
                   {{ $t("footer.information.items[0]") }}
                 </NuxtLink>
               </li>
               <li class="footer__content-item">
-                <NuxtLink class="footer__content-link" to="/about">
+                <NuxtLink
+                  class="footer__content-link"
+                  to="/about"
+                >
                   {{ $t("footer.information.items[1]") }}
                 </NuxtLink>
               </li>
               <li class="footer__content-item">
-                <NuxtLink class="footer__content-link" to="/jobs">
+                <NuxtLink
+                  class="footer__content-link"
+                  to="/jobs"
+                >
                   {{ $t("footer.information.items[2]") }}
                 </NuxtLink>
               </li>
               <li class="footer__content-item">
-                <NuxtLink class="footer__content-link" to="/sell-content">
+                <NuxtLink
+                  class="footer__content-link"
+                  to="/sell-content"
+                >
                   {{ $t("footer.information.items[3]") }}
                 </NuxtLink>
               </li>
@@ -103,17 +135,26 @@ function clearFilterAndRouterPush() {
             </p>
             <ul class="footer__content-list">
               <li class="footer__content-item">
-                <NuxtLink class="footer__content-link" to="/terms">
+                <NuxtLink
+                  class="footer__content-link"
+                  to="/terms"
+                >
                   {{ $t("footer.legal.items[0]") }}
                 </NuxtLink>
               </li>
               <li class="footer__content-item">
-                <NuxtLink class="footer__content-link" to="/privacy">
+                <NuxtLink
+                  class="footer__content-link"
+                  to="/privacy"
+                >
                   {{ $t("footer.legal.items[1]") }}
                 </NuxtLink>
               </li>
               <li class="footer__content-item">
-                <NuxtLink class="footer__content-link" to="/cookie">
+                <NuxtLink
+                  class="footer__content-link"
+                  to="/cookie"
+                >
                   {{ $t("footer.legal.items[2]") }}
                 </NuxtLink>
               </li>
@@ -126,12 +167,18 @@ function clearFilterAndRouterPush() {
             </p>
             <ul class="footer__content-list">
               <li class="footer__content-item">
-                <NuxtLink class="footer__content-link" to="/community">
+                <NuxtLink
+                  class="footer__content-link"
+                  to="/community"
+                >
                   {{ $t("footer.support.items[0]") }}
                 </NuxtLink>
               </li>
               <li class="footer__content-item">
-                <NuxtLink class="footer__content-link" to="/submit-a-request">
+                <NuxtLink
+                  class="footer__content-link"
+                  to="/submit-a-request"
+                >
                   {{ $t("footer.support.items[1]") }}
                 </NuxtLink>
               </li>
@@ -143,10 +190,22 @@ function clearFilterAndRouterPush() {
               {{ $t("footer.subscribe.title") }}
             </p>
             <div class="footer__subscribe-wrapper">
-              <UiInputMain class="footer__subscribe-input" :placeholder="$t('footer.subscribe.placeholder')"
-                theme="subscribe" width="100%" height="64px" />
-              <UiButtonMain class="footer__subscribe-button" :title="$t('footer.subscribe.button')" theme="primary"
-                width="100%" height="54px" padding="0 10px" border-radius="15px" />
+              <UiInputMain
+                class="footer__subscribe-input"
+                :placeholder="$t('footer.subscribe.placeholder')"
+                theme="subscribe"
+                width="100%"
+                height="64px"
+              />
+              <UiButtonMain
+                class="footer__subscribe-button"
+                :title="$t('footer.subscribe.button')"
+                theme="primary"
+                width="100%"
+                height="54px"
+                padding="0 10px"
+                border-radius="15px"
+              />
             </div>
           </div>
         </div>
@@ -156,8 +215,14 @@ function clearFilterAndRouterPush() {
             {{ $t("footer.copyright") }}
           </p>
           <div class="footer__bottom-icons">
-            <Icon name="FooterMasterCard" size="35" />
-            <Icon name="FooterVisa" size="35" />
+            <Icon
+              name="FooterMasterCard"
+              size="35"
+            />
+            <Icon
+              name="FooterVisa"
+              size="35"
+            />
           </div>
         </div>
       </div>

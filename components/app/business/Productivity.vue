@@ -7,7 +7,10 @@
         </h2>
         <div class="productivity__items">
           <div class="productivity__items-card">
-            <Icon name="BusinessProductivity01" size="42" />
+            <Icon
+              name="BusinessProductivity01"
+              size="42"
+            />
             <div class="productivity__items-text">
               <h2 class="productivity__items-title">
                 {{ $t("static.business.productivity.items[0].title") }}
@@ -18,7 +21,10 @@
             </div>
           </div>
           <div class="productivity__items-card">
-            <Icon name="BusinessProductivity02" size="42" />
+            <Icon
+              name="BusinessProductivity02"
+              size="42"
+            />
             <div class="productivity__items-text">
               <h2 class="productivity__items-title">
                 {{ $t("static.business.productivity.items[1].title") }}
@@ -29,7 +35,10 @@
             </div>
           </div>
           <div class="productivity__items-card">
-            <Icon name="BusinessProductivity03" size="42" />
+            <Icon
+              name="BusinessProductivity03"
+              size="42"
+            />
             <div class="productivity__items-text">
               <h2 class="productivity__items-title">
                 {{ $t("static.business.productivity.items[2].title") }}
@@ -40,7 +49,10 @@
             </div>
           </div>
           <div class="productivity__items-card">
-            <Icon name="BusinessProductivity04" size="42" />
+            <Icon
+              name="BusinessProductivity04"
+              size="42"
+            />
             <div class="productivity__items-text">
               <h2 class="productivity__items-title">
                 {{ $t("static.business.productivity.items[3].title") }}
@@ -51,7 +63,10 @@
             </div>
           </div>
           <div class="productivity__items-card">
-            <Icon name="BusinessProductivity05" size="42" />
+            <Icon
+              name="BusinessProductivity05"
+              size="42"
+            />
             <div class="productivity__items-text">
               <h2 class="productivity__items-title">
                 {{ $t("static.business.productivity.items[4].title") }}
@@ -62,7 +77,10 @@
             </div>
           </div>
           <div class="productivity__items-card">
-            <Icon name="BusinessProductivity06" size="42" />
+            <Icon
+              name="BusinessProductivity06"
+              size="42"
+            />
             <div class="productivity__items-text">
               <h2 class="productivity__items-title">
                 {{ $t("static.business.productivity.items[5].title") }}

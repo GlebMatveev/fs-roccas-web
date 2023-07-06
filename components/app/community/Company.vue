@@ -1,6 +1,6 @@
 <script setup>
 // Stores
-import { usePopupStore } from '@/store/popup';
+import { usePopupStore } from "@/store/popup";
 const popupStore = usePopupStore();
 </script>
 
@@ -13,26 +13,41 @@ const popupStore = usePopupStore();
         </h2>
         <div class="company__items">
           <div class="company__items-card">
-            <Icon name="CommunityCompany01" size="42" />
+            <Icon
+              name="CommunityCompany01"
+              size="42"
+            />
             <p class="company__items-title">
               {{ $t("static.community.company.items[0]") }}
             </p>
           </div>
           <div class="company__items-card">
-            <Icon name="CommunityCompany02" size="42" />
+            <Icon
+              name="CommunityCompany02"
+              size="42"
+            />
             <p class="company__items-title">
               {{ $t("static.community.company.items[1]") }}
             </p>
           </div>
           <div class="company__items-card">
-            <Icon name="CommunityCompany03" size="42" />
+            <Icon
+              name="CommunityCompany03"
+              size="42"
+            />
             <p class="company__items-title">
               {{ $t("static.community.company.items[2]") }}
             </p>
           </div>
         </div>
-        <UiButtonMain class="company__items-button" :title="$t('static.community.company.button')" theme="primary"
-          icon-name="ButtonArrowRight" icon-size="18" @click="popupStore.popupSignUp = true" />
+        <UiButtonMain
+          class="company__items-button"
+          :title="$t('static.community.company.button')"
+          theme="primary"
+          icon-name="ButtonArrowRight"
+          icon-size="18"
+          @click="popupStore.popupSignUp = true"
+        />
       </div>
     </div>
   </section>

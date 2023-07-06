@@ -1,6 +1,6 @@
 <script setup>
 // Stores
-import { usePopupStore } from '@/store/popup';
+import { usePopupStore } from "@/store/popup";
 const popupStore = usePopupStore();
 </script>
 
@@ -15,10 +15,19 @@ const popupStore = usePopupStore();
           <p class="company__text-description">
             {{ $t("static.jobs.company.description") }}
           </p>
-          <UiButtonMain :title="$t('static.jobs.company.button')" theme="primary" icon-name="ButtonArrowRight"
-            icon-size="18" @click="popupStore.popupSignUp = true" />
+          <UiButtonMain
+            :title="$t('static.jobs.company.button')"
+            theme="primary"
+            icon-name="ButtonArrowRight"
+            icon-size="18"
+            @click="popupStore.popupSignUp = true"
+          />
         </div>
-        <img src="/img/static/jobs/company.png" alt="Company" class="company__image" />
+        <img
+          src="/img/static/jobs/company.png"
+          alt="Company"
+          class="company__image"
+        />
       </div>
     </div>
   </section>

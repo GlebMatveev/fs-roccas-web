@@ -1,6 +1,6 @@
 <script setup>
 // Stores
-import { usePopupStore } from '@/store/popup';
+import { usePopupStore } from "@/store/popup";
 const popupStore = usePopupStore();
 </script>
 
@@ -8,7 +8,11 @@ const popupStore = usePopupStore();
   <section class="sell">
     <div class="container">
       <div class="sell__wrapper">
-        <img src="/img/static/sell-content/sell-vector.png" alt="Sell content" class="sell__image" />
+        <img
+          src="/img/static/sell-content/sell-vector.png"
+          alt="Sell content"
+          class="sell__image"
+        />
         <div class="sell__text">
           <h2 class="sell__text-title">
             {{ $t("static.sellContent.sellVector.title") }}
@@ -16,8 +20,13 @@ const popupStore = usePopupStore();
           <p class="sell__text-description">
             {{ $t("static.sellContent.sellVector.description") }}
           </p>
-          <UiButtonMain :title="$t('static.sellContent.sellVector.button')" theme="primary" icon-name="ButtonArrowRight"
-            icon-size="18" @click="popupStore.popupSignUp = true" />
+          <UiButtonMain
+            :title="$t('static.sellContent.sellVector.button')"
+            theme="primary"
+            icon-name="ButtonArrowRight"
+            icon-size="18"
+            @click="popupStore.popupSignUp = true"
+          />
         </div>
       </div>
     </div>

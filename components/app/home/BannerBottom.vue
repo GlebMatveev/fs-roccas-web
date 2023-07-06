@@ -1,6 +1,6 @@
 <script setup>
 // Stores
-import { usePopupStore } from '@/store/popup';
+import { usePopupStore } from "@/store/popup";
 const popupStore = usePopupStore();
 </script>
 
@@ -11,14 +11,17 @@ const popupStore = usePopupStore();
         <h2 class="banner__title">
           {{ $t("static.home.bannerBottom.title") }}
           <span class="banner__title-span">{{
-                      $t("static.home.bannerBottom.titleSpan")
-                      }}</span>
+            $t("static.home.bannerBottom.titleSpan")
+          }}</span>
         </h2>
         <p class="banner__description">
           {{ $t("static.home.bannerBottom.description") }}
         </p>
-        <UiButtonMain :title="$t('static.home.bannerBottom.button')" theme="primary"
-          @click="popupStore.popupSignUp = true" />
+        <UiButtonMain
+          :title="$t('static.home.bannerBottom.button')"
+          theme="primary"
+          @click="popupStore.popupSignUp = true"
+        />
       </div>
     </div>
   </section>

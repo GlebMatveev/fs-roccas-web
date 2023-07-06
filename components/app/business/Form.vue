@@ -1,18 +1,15 @@
 <script setup>
 // Stores
-import { usePopupStore } from '@/store/popup';
+import { usePopupStore } from "@/store/popup";
 const popupStore = usePopupStore();
-
 
 // Environment Variables
 const runtimeConfig = useRuntimeConfig();
-
 
 // Auth data
 const basicAuth = {
   Authorization: `Basic ${runtimeConfig.public.basicAuth}`,
 };
-
 
 // Variables
 const request = reactive({
@@ -21,7 +18,6 @@ const request = reactive({
   subject: "",
   description: "",
 });
-
 
 // Functions
 function postRequest(request) {
@@ -63,15 +59,37 @@ const areAllFiledsFilled = computed(() => {
           {{ $t("static.business.form.description") }}
         </p>
         <div class="form__block">
-          <UiInputMain class="form__block-input" :placeholder="$t('static.business.form.placeholders[1]')" theme="primary"
-            width="100%" v-model="request.email" />
-          <UiInputMain class="form__block-input" :placeholder="$t('static.business.form.placeholders[3]')" theme="primary"
-            width="100%" v-model="request.subject" />
-          <UiTextareaMain class="form__block-input" :placeholder="$t('static.business.form.placeholders[4]')"
-            theme="primary" width="100%" rows="7" v-model="request.description" />
-          <UiButtonMain :title="$t('static.business.form.button')" theme="primary" width="100%" :class="{
-                      disabled: !areAllFiledsFilled,
-                    }" @click="postRequest(request)" />
+          <UiInputMain
+            class="form__block-input"
+            :placeholder="$t('static.business.form.placeholders[1]')"
+            theme="primary"
+            width="100%"
+            v-model="request.email"
+          />
+          <UiInputMain
+            class="form__block-input"
+            :placeholder="$t('static.business.form.placeholders[3]')"
+            theme="primary"
+            width="100%"
+            v-model="request.subject"
+          />
+          <UiTextareaMain
+            class="form__block-input"
+            :placeholder="$t('static.business.form.placeholders[4]')"
+            theme="primary"
+            width="100%"
+            rows="7"
+            v-model="request.description"
+          />
+          <UiButtonMain
+            :title="$t('static.business.form.button')"
+            theme="primary"
+            width="100%"
+            :class="{
+              disabled: !areAllFiledsFilled,
+            }"
+            @click="postRequest(request)"
+          />
         </div>
       </div>
     </div>

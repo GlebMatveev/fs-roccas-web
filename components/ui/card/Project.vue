@@ -2,16 +2,12 @@
 // Props
 const props = defineProps({
   project: Object,
+  currency: Object,
 });
-
-// States
-const useStateCurrency = useState("stateCurrency");
 
 // Functions
 function calcCurrencyRate(price) {
-  return (parseFloat(price) * parseFloat(useStateCurrency.value.rate)).toFixed(
-    2
-  );
+  return (parseFloat(price) * parseFloat(props.currency.rate)).toFixed(2);
 }
 
 // Image placeholder
@@ -31,7 +27,7 @@ function replaceImgByDefault(e) {
         @error="replaceImgByDefault"
       />
       <p class="project__price">
-        {{ calcCurrencyRate(project.price) }} {{ useStateCurrency.code }}
+        {{ calcCurrencyRate(project.price) }} {{ props.currency.code }}
       </p>
     </NuxtLink>
   </div>
@@ -48,6 +44,7 @@ function replaceImgByDefault(e) {
     object-fit: cover;
     border-radius: 20px;
   }
+
   &__price {
     position: absolute;
     font-style: normal;

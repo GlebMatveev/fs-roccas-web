@@ -1,17 +1,25 @@
 <script setup>
 // Stores
-import { useProductStore } from '@/store/product';
-import { useFilterStore } from '@/store/filter';
+import { useProductStore } from "@/store/product";
+import { useFilterStore } from "@/store/filter";
 
 const productStore = useProductStore();
 const filterStore = useFilterStore();
 </script>
 
 <template>
-  <div class="countswitcher" v-if="productStore.products">
+  <div
+    class="countswitcher"
+    v-if="productStore.products"
+  >
     <p class="countswitcher__title">{{ $t("countSwitcher.title") }}</p>
-    <select class="countswitcher__wrapper" name="countswitcher" id="countswitcher" v-model="filterStore.filters.take"
-      @change="productStore.getProducts()">
+    <select
+      class="countswitcher__wrapper"
+      name="countswitcher"
+      id="countswitcher"
+      v-model="filterStore.filters.take"
+      @change="productStore.getProducts()"
+    >
       <option value="12">12</option>
       <option value="24">24</option>
       <option value="36">36</option>

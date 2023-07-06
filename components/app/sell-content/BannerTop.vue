@@ -1,6 +1,6 @@
 <script setup>
 // Stores
-import { usePopupStore } from '@/store/popup';
+import { usePopupStore } from "@/store/popup";
 const popupStore = usePopupStore();
 </script>
 
@@ -16,26 +16,43 @@ const popupStore = usePopupStore();
         </p>
         <div class="banner__items">
           <div class="banner__items-card">
-            <Icon class="banner__items-icon" name="SellContentTop01" size="40" />
+            <Icon
+              class="banner__items-icon"
+              name="SellContentTop01"
+              size="40"
+            />
             <p class="banner__items-description">
               {{ $t("static.sellContent.bannerTop.items[0]") }}
             </p>
           </div>
           <div class="banner__items-card">
-            <Icon class="banner__items-icon" name="SellContentTop02" size="40" />
+            <Icon
+              class="banner__items-icon"
+              name="SellContentTop02"
+              size="40"
+            />
             <p class="banner__items-description">
               {{ $t("static.sellContent.bannerTop.items[1]") }}
             </p>
           </div>
           <div class="banner__items-card">
-            <Icon class="banner__items-icon" name="SellContentTop03" size="40" />
+            <Icon
+              class="banner__items-icon"
+              name="SellContentTop03"
+              size="40"
+            />
             <p class="banner__items-description">
               {{ $t("static.sellContent.bannerTop.items[2]") }}
             </p>
           </div>
         </div>
-        <UiButtonMain :title="$t('static.sellContent.bannerTop.button')" theme="primary" icon-name="ButtonArrowRight"
-          icon-size="18" @click="popupStore.popupSignUp = true" />
+        <UiButtonMain
+          :title="$t('static.sellContent.bannerTop.button')"
+          theme="primary"
+          icon-name="ButtonArrowRight"
+          icon-size="18"
+          @click="popupStore.popupSignUp = true"
+        />
       </div>
     </div>
   </section>

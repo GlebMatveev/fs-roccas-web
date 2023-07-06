@@ -10,7 +10,11 @@
         </p>
         <div class="team__items">
           <div class="team__items-card">
-            <Icon class="team__items-icon" name="JobsTeam01" size="42" />
+            <Icon
+              class="team__items-icon"
+              name="JobsTeam01"
+              size="42"
+            />
             <h3 class="team__items-title">
               {{ $t("static.jobs.team.items[0].title") }}
             </h3>
@@ -19,7 +23,11 @@
             </p>
           </div>
           <div class="team__items-card">
-            <Icon class="team__items-icon" name="JobsTeam02" size="42" />
+            <Icon
+              class="team__items-icon"
+              name="JobsTeam02"
+              size="42"
+            />
             <h3 class="team__items-title">
               {{ $t("static.jobs.team.items[1].title") }}
             </h3>
@@ -28,7 +36,11 @@
             </p>
           </div>
           <div class="team__items-card">
-            <Icon class="team__items-icon" name="JobsTeam03" size="42" />
+            <Icon
+              class="team__items-icon"
+              name="JobsTeam03"
+              size="42"
+            />
             <h3 class="team__items-title">
               {{ $t("static.jobs.team.items[2].title") }}
             </h3>
@@ -37,7 +49,11 @@
             </p>
           </div>
           <div class="team__items-card">
-            <Icon class="team__items-icon" name="JobsTeam04" size="42" />
+            <Icon
+              class="team__items-icon"
+              name="JobsTeam04"
+              size="42"
+            />
             <h3 class="team__items-title">
               {{ $t("static.jobs.team.items[3].title") }}
             </h3>

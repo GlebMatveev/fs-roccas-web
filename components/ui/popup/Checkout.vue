@@ -1,17 +1,18 @@
 <script setup>
 // Stores
-import { usePopupStore } from '@/store/popup';
+import { usePopupStore } from "@/store/popup";
 const popupStore = usePopupStore();
 
 // Props
 const props = defineProps({
   show: Boolean,
+  totalSum: String,
+  productName: String,
+  currency: Object,
 });
-
 
 // Emits
 const emit = defineEmits(["close", "to-sign-up"]);
-
 
 // Computed
 const areAllFiledsFilled = computed(() => {
@@ -22,16 +23,13 @@ const areAllFiledsFilled = computed(() => {
   }
 });
 
-
 // Environment Variables
 const runtimeConfig = useRuntimeConfig();
-
 
 // Auth data
 const basicAuth = {
   Authorization: `Basic ${runtimeConfig.public.basicAuth}`,
 };
-
 
 // Variables
 let user = "";
@@ -57,19 +55,10 @@ const order = reactive({
   },
 });
 
-
-// States
-const useStateCurrency = useState("stateCurrency");
-const useStatePopupCurrentPrice = useState("statePopupCurrentPrice");
-const useStatePopupCurrentProduct = useState("statePopupCurrentProduct");
-
-
-
 // Functions
 function calcCurrencyRate(price) {
   return (
-    parseFloat(price.replace(/[\s,%]/g, "")) *
-    parseFloat(useStateCurrency.value.rate)
+    parseFloat(price.replace(/[\s,%]/g, "")) * parseFloat(props.currency.rate)
   ).toFixed(2);
 }
 
@@ -88,14 +77,14 @@ async function checkout() {
   order.userId = user.id;
   order.userEmail = user.email;
   order.userFullName = user.name + " " + user.surname;
-  order.cart = useStatePopupCurrentProduct.value;
+  order.cart = props.productName;
   order.quantity = "1";
-  order.total = useStatePopupCurrentPrice.value;
+  order.total = props.totalSum;
   order.order.description = `Order by user #${user.id} (${user.email})`;
   order.order.customer.accountId = user.id;
   order.order.customer.email = user.email;
-  order.order.amount.value = useStatePopupCurrentPrice.value;
-  order.order.amount.currency = useStateCurrency.value.code;
+  order.order.amount.value = props.productName;
+  order.order.amount.currency = props.currency.code;
 
   $fetch("/orders", {
     headers: basicAuth,
@@ -117,7 +106,10 @@ async function checkout() {
 </script>
 
 <template>
-  <div v-if="show" class="modal__overlay">
+  <div
+    v-if="show"
+    class="modal__overlay"
+  >
     <div class="modal">
       <div class="modal__form">
         <div class="cart__payment">
@@ -128,17 +120,31 @@ async function checkout() {
               {{ $t("popupCheckout.total") }}
             </p>
             <p class="cart__payment-total-sum">
-              {{ calcCurrencyRate(useStatePopupCurrentPrice) }}
-              {{ useStateCurrency.code }}
+              {{ calcCurrencyRate(props.totalSum) }}
+              {{ props.currency.code }}
             </p>
           </div>
-          <UiButtonMain class="cart__payment-button" :title="$t('popupCheckout.button')" theme="primary" width="100%"
-            height="56px" padding="0" :loader="loader" loader-path="/img/static/loader.gif" @click="checkout()" />
+          <UiButtonMain
+            class="cart__payment-button"
+            :title="$t('popupCheckout.button')"
+            theme="primary"
+            width="100%"
+            height="56px"
+            padding="0"
+            :loader="loader"
+            loader-path="/img/static/loader.gif"
+            @click="checkout()"
+          />
         </div>
       </div>
     </div>
 
-    <Icon class="modal__close-button" @click="emit('close')" name="PopupClose" size="24" />
+    <Icon
+      class="modal__close-button"
+      @click="emit('close')"
+      name="PopupClose"
+      size="24"
+    />
   </div>
 </template>
 

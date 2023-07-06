@@ -1,7 +1,10 @@
 <script setup>
 // Stores
-import { usePopupStore } from '@/store/popup';
+import { usePopupStore } from "@/store/popup";
+import { useCartStore } from "@/store/cart";
+
 const popupStore = usePopupStore();
+const cartStore = useCartStore();
 
 // Environment Variables
 const runtimeConfig = useRuntimeConfig();
@@ -16,18 +19,16 @@ const basicAuth = {
 
 // Fetch
 const { data: products } = await useFetch(
-  runtimeConfig.public.apiBase + "/products/" + route.params.id, { headers: basicAuth }
+  runtimeConfig.public.apiBase + "/products/" + route.params.id,
+  { headers: basicAuth }
 );
 const product = products.value[0];
 
 // States
-const useStateCurrency = useState("stateCurrency");
-const useStatePopupCurrentPrice = useState("statePopupCurrentPrice");
-const useStatePopupCurrentProduct = useState("statePopupCurrentProduct");
-const useStateToPath = useState("stateToPath");
+const useStateToRouteAfterAuth = useState("stateToRouteAfterAuth");
 
 function checkAuth(price, productName) {
-  useStateToPath.value = "";
+  useStateToRouteAfterAuth.value = "";
 
   // если нет данных авторизации
   if (!localStorage.userId || !localStorage.userToken) {
@@ -62,8 +63,8 @@ function checkAuth(price, productName) {
 }
 
 function openCheckoutPopup(price, productName) {
-  useStatePopupCurrentPrice.value = price;
-  useStatePopupCurrentProduct.value = productName;
+  cartStore.currentTotalSum = price;
+  cartStore.currentProductName = productName;
   popupStore.popupCheckout = true;
 }
 
@@ -75,7 +76,7 @@ function toSignIn() {
 function calcCurrencyRate(price) {
   return (
     parseFloat(price.replace(/[\s,%]/g, "")) *
-    parseFloat(useStateCurrency.value.rate)
+    parseFloat(cartStore.currentCurrency.rate)
   ).toFixed(2);
 }
 
@@ -94,8 +95,14 @@ useHead({
   <section class="catalog">
     <div class="container">
       <div class="catalog__wrapper">
-        <NuxtLink class="catalog__breadcrumbs" to="/catalog">
-          <Icon name="CatalogDetailArrowLeft" size="24" />
+        <NuxtLink
+          class="catalog__breadcrumbs"
+          to="/catalog"
+        >
+          <Icon
+            name="CatalogDetailArrowLeft"
+            size="24"
+          />
           <p class="catalog__breadcrumbs-text">
             {{ $t("static.catalogDetail.breadcrumbs") }}
           </p>
@@ -107,7 +114,12 @@ useHead({
           </h2>
         </div>
 
-        <img :src="`/img/products/${product.image}`" alt="Image" class="catalog__image" @error="replaceImgByDefault" />
+        <img
+          :src="`/img/products/${product.image}`"
+          alt="Image"
+          class="catalog__image"
+          @error="replaceImgByDefault"
+        />
 
         <div class="catalog__bottombar">
           <div class="catalog__bottombar-text">
@@ -118,10 +130,13 @@ useHead({
               {{ product.developer }}
             </p>
           </div>
-          <UiButtonMain theme="primary"
-            :title="`${$t('static.catalogDetail.button')}:
-                                                                        ${calcCurrencyRate(product.price)} ${useStateCurrency.code}`"
-            @click="checkAuth(product.price, product.name)" />
+          <UiButtonMain
+            theme="primary"
+            :title="`${$t('static.catalogDetail.button')}: ${calcCurrencyRate(
+              product.price
+            )} ${cartStore.currentCurrency.code}`"
+            @click="checkAuth(product.price, product.name)"
+          />
         </div>
       </div>
     </div>

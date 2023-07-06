@@ -2,16 +2,13 @@
 // Environment Variables
 const runtimeConfig = useRuntimeConfig();
 
-
 // Auth data
 const basicAuth = {
   Authorization: `Basic ${runtimeConfig.public.basicAuth}`,
 };
 
-
 // Router parameters
 const router = useRouter();
-
 
 // Image loading
 let imageFile = ref(null);
@@ -28,7 +25,6 @@ const onImageChange = (event) => {
   };
   reader.readAsDataURL(imageFile.value);
 };
-
 
 // Functions
 function postAsset(asset) {
@@ -93,29 +89,68 @@ useHead({
               {{ $t("static.addProject.imagesDescription") }}
             </p>
             <!-- <div class="projects__images-upload" v-if="arrImageUrl.length < 5"> -->
-            <div class="projects__images-upload" v-if="arrImageUrl.length < 1">
+            <div
+              class="projects__images-upload"
+              v-if="arrImageUrl.length < 1"
+            >
               <label for="projects__images-file">
-                <img class="projects__images-placeholder" :src="imageUrl" />
+                <img
+                  class="projects__images-placeholder"
+                  :src="imageUrl"
+                />
               </label>
 
-              <input id="projects__images-file" type="file" accept="image/png, image/jpeg" @change="onImageChange" />
+              <input
+                id="projects__images-file"
+                type="file"
+                accept="image/png, image/jpeg"
+                @change="onImageChange"
+              />
             </div>
-            <img class="projects__images-uploaded" :src="item" v-for="item in arrImageUrl" />
+            <img
+              class="projects__images-uploaded"
+              :src="item"
+              v-for="item in arrImageUrl"
+            />
           </div>
         </div>
         <div class="projects__content">
           <h2 class="projects__title">{{ $t("static.addProject.title") }}</h2>
-          <UiInputMain class="projects__input" theme="primary" :placeholder="$t('static.addProject.placeholders[0]')"
-            type="text" v-model="asset.name" />
-          <UiInputMain class="projects__input" theme="primary" :placeholder="$t('static.addProject.placeholders[1]')"
-            type="number" v-model="asset.price" />
-          <UiInputMain class="projects__input" theme="primary" :placeholder="$t('static.addProject.placeholders[2]')"
-            type="text" v-model="asset.developer" />
-          <UiInputMain class="projects__input" theme="primary" :placeholder="$t('static.addProject.placeholders[3]')"
-            type="text" v-model="asset.keyword" />
+          <UiInputMain
+            class="projects__input"
+            theme="primary"
+            :placeholder="$t('static.addProject.placeholders[0]')"
+            type="text"
+            v-model="asset.name"
+          />
+          <UiInputMain
+            class="projects__input"
+            theme="primary"
+            :placeholder="$t('static.addProject.placeholders[1]')"
+            type="number"
+            v-model="asset.price"
+          />
+          <UiInputMain
+            class="projects__input"
+            theme="primary"
+            :placeholder="$t('static.addProject.placeholders[2]')"
+            type="text"
+            v-model="asset.developer"
+          />
+          <UiInputMain
+            class="projects__input"
+            theme="primary"
+            :placeholder="$t('static.addProject.placeholders[3]')"
+            type="text"
+            v-model="asset.keyword"
+          />
           <div class="projects__select">
-            <select class="projects__select-wrapper" name="projects__select" id="projects__select"
-              v-model="asset.category_id">
+            <select
+              class="projects__select-wrapper"
+              name="projects__select"
+              id="projects__select"
+              v-model="asset.category_id"
+            >
               <option value="1">
                 {{ $t("static.addProject.categoriesSelect[0]") }}
               </option>
@@ -129,12 +164,22 @@ useHead({
                 {{ $t("static.addProject.categoriesSelect[3]") }}
               </option>
             </select>
-            <Icon class="projects__select-icon" name="SelectArrowDown" size="20" />
+            <Icon
+              class="projects__select-icon"
+              name="SelectArrowDown"
+              size="20"
+            />
           </div>
 
-          <UiButtonMain theme="primary" :title="$t('static.addProject.button')" width="100%" :class="{
-            disabled: !areAllFiledsFilled,
-          }" @click="postAsset(asset)" />
+          <UiButtonMain
+            theme="primary"
+            :title="$t('static.addProject.button')"
+            width="100%"
+            :class="{
+              disabled: !areAllFiledsFilled,
+            }"
+            @click="postAsset(asset)"
+          />
         </div>
       </div>
     </div>
@@ -186,7 +231,7 @@ useHead({
       margin-bottom: 10px;
     }
 
-    &-upload>input {
+    &-upload > input {
       display: none;
     }
 
